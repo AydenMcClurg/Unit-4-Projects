@@ -34,14 +34,36 @@
 
 */
 
+window.onload = init;
+
+//define event listeners
+function init(){
+   var stars = document.querySelectorAll("span#stars img");
+
+   for(var i=0; i<stars.length; i++){
+      stars[i].styles.cursor = "pointer";
+      stars[i].addEventListener("mouseenter", lightStars);
+   }
+   stars[i].addEventListener("keyup", updateCount)
+}
+
+function lightStars(e){
+   var starNumber = e.target.alt;
+
+   var stars = document.querySelectorAll("span#stars img");
+
+   for(i=0; i<starNumber.length; i++){
+      stars[i].src = "bw_star2.png";
+   }
+   for(i=starNumber; i<5; i++){
+      stars[i].src = "bw_star.png";
+   }
+   
+}
 
 
-  
 
 
-  
-  
-  
 /*=================================================================*/
 
 function countCharacters(textStr) {
