@@ -40,28 +40,57 @@ window.onload = init;
 function init(){
    var stars = document.querySelectorAll("span#stars img");
 
-   for(var i=0; i<stars.length; i++){
-      stars[i].styles.cursor = "pointer";
+   for(var i = 0; i < stars.length; i++){
+      stars[i].style.cursor = "pointer";
       stars[i].addEventListener("mouseenter", lightStars);
    }
-   stars[i].addEventListener("keyup", updateCount)
+   document.getElementById("comment").addEventListener("keyup", updateCount);
 }
-
+//color a star when the user moves the user moves the mouse pointer over a star image
 function lightStars(e){
    var starNumber = e.target.alt;
 
    var stars = document.querySelectorAll("span#stars img");
 
-   for(i=0; i<starNumber.length; i++){
+   for(var i = 0; i < starNumber; i++){
       stars[i].src = "bw_star2.png";
    }
-   for(i=starNumber; i<5; i++){
+   for(var i = starNumber; i<5; i++){
       stars[i].src = "bw_star.png";
    }
+   document.getElementById("rating").value = starNumber + " stars";
+   e.target.addEventListener("mouseleave", turnOffStars)
+   e.target.addEventListener("click", function(){
+      e.target.removeEventListener("mouseleave", turnOffStars)
+      }
+   );
    
 }
 
+//unlight the stars when the user moves the mouse pointer off the images
+function turnOffStars(){
+   var stars = document.querySelectorAll("span#stars img");
+   for(var i = 0; i < stars.length; i++){
+      stars[i].src = "bw_star.png";
+      document.getElementById("rating").value = "";
+   }
+}
+//keeps a running total of the number of characters that the user has type into the comment text area box
+function updateCount(){
+   var commentText = document.getElementById("comment").value;
+   var charCount = countCharacters(commentText);
+   var wordCountBox = document.getElementById("wordCount");
+   wordCountBox.value = charCount + "/1000"
 
+
+if(charCount > 1000){
+   wordCountBox.style.color = "white";
+   wordCountBox.style.backgroundColor = "red";
+}else{
+   wordCountBox.style.color = "black";
+   wordCountBox.style.backgroundColor = "white";
+}
+}
 
 
 /*=================================================================*/
