@@ -75,7 +75,7 @@ function turnOffStars(){
       document.getElementById("rating").value = "";
    }
 }
-//keeps a running total of the number of characters that the user has type into the comment text area box
+//keeps a running total of the number of characters that the user has type into the comment text area boxo
 function updateCount(){
    var commentText = document.getElementById("comment").value;
    var charCount = countCharacters(commentText);
