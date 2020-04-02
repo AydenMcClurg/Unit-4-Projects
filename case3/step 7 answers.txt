@@ -1,0 +1,50 @@
+// step 7
+function formatPuzzle(puzzleLetter) {
+ 
+   //step 7a
+   currentLetter = puzzleLetter; 
+   
+   //step 7b
+   for (var i = 0; i < allLetters.length; i++) {
+      allLetters[i].style.backgroundColor = "";
+   }
+   
+   //step 7c
+   acrossClue.style.color = "";
+   downClue.style.color = "";
+   
+   //step 7d
+   if (currentLetter.dataset.clueA !== undefined) {
+ 
+      //step 7d i
+      acrossClue = document.getElementById(currentLetter.dataset.clueA);
+ 
+      //step 7d ii
+      acrossClue.style.color = "blue";
+ 
+      //step 7d iii
+      wordLetters = document.querySelectorAll("[data-clue-a = " + currentLetter.dataset.clueA + "]");
+ 
+      //step 7d iv
+      for (var i = 0; i < wordLetters.length; i++) {
+         wordLetters[i].style.backgroundColor = "rgb(231, 231, 255)";
+      }
+   }
+ 
+   //step 7e
+   if (currentLetter.dataset.clueD !== undefined) {
+      downClue = document.getElementById(currentLetter.dataset.clueD);
+      downClue.style.color = "red";
+      wordLetters = document.querySelectorAll("[data-clue-d = " + currentLetter.dataset.clueD + "]");
+      for (var i = 0; i < wordLetters.length; i++) {
+         wordLetters[i].style.backgroundColor = "rgb(255, 231, 231)";
+      }
+   }
+   
+   //step 7f
+   if (typeDirection === "right") {
+      currentLetter.style.backgroundColor = "rgb(191, 191, 255)";
+   } else {
+      currentLetter.style.backgroundColor = "rgb(255, 191, 191)";
+   }
+}
