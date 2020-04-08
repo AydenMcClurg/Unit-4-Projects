@@ -1,0 +1,52 @@
+function init() {
+   allLetters = document.querySelectorAll("table#crossword span");
+   currentLetter = allLetters[0]; 
+   var acrossID = currentLetter.dataset.clueA;
+   var downID = currentLetter.dataset.clueD;
+   acrossClue = document.getElementById(currentLetter.dataset.clueA);
+   downClue = document.getElementById(currentLetter.dataset.clueD);
+   
+   //step 8a
+   formatPuzzle(currentLetter);
+   
+   //step 8b
+   for (var i = 0; i < allLetters.length; i++) {
+      //step 8b i
+      allLetters[i].style.cursor = "pointer";  
+      //step 8b ii    
+      allLetters[i].onmousedown = function(e) {
+         formatPuzzle(e.target);
+      };
+   }
+ 
+   //step 10
+   document.onkeydown = selectLetter;
+   
+   //step 12a
+   var typeImage = document.getElementById("directionImg");
+   //step 12b
+   typeImage.style.cursor = "pointer";
+   //step 12c
+   typeImage.onclick = switchTypeDirection;
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+//step 11
+function switchTypeDirection() {
+   //step 11a
+   var typeImage = document.getElementById("directionImg");
+   //step 11b-c
+   if (typeDirection === "right") {
+      typeDirection = "down";
+      typeImage.src = "pc_down.png";
+      currentLetter.style.backgroundColor = "rgb(255, 191, 191)";
+   } else {
+      typeDirection = "right";
+      typeImage.src = "pc_right.png";
+      currentLetter.style.backgroundColor = "rgb(191, 191, 255)";
+   }   
+}

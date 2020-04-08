@@ -70,31 +70,85 @@ function init() {
    var downID = currentLetter.dataset.clueD;
    acrossClue = document.getElementById(currentLetter.dataset.clueA);
    downClue = document.getElementById(currentLetter.dataset.clueD);
+
+   //step 8
+   formatPuzzle(currentLetter);// i made currentLetter equal formatPuzzle
+
+   for(var i=0; i<allLetters.length; i++){
+
+      allLetters[i].style.cursor = "pointer"; // i honestly forgot how to do what the step asked and i looked through my notes as well. in other words i tried my best
+
+      allLetters[i].onmousedown = function(e){ //i forgot to add the arry allLeters and have the function formatPuzzle use the anonymous function
+         formatPuzzle(e.target)
+      };
+   }
+   
+   //10
+   document.onkeydown = selectLetter;//didnt put it in the init function and i go it wrong
+
+   //12
+   var typeImage = document.getElementById("directionImg");
+
+   typeImage.style.cursor = "pointer";
+
+   typeImage.onclick = switchTypeDirection; //i did mmousedown and not onclick
+
+
+   //13
+   showErrors.onmousedown = switchTypeDirection;
+   for(var i=0; i<allLetters.length; i++){
+      if(textContent !== dataset.letter){
+         allLetters.style.color = "red";
+         setInterval(allLetters.style.color = "", 3000);
+      }
+   }
+
+   //14
+   showSolution.onclick = function(e){
+      for(var i=0; i<allLetters.length; i++){
+      e.allLetters = dataset.letter
+      };
+   }
+
+
+
+
+
 }
+
+//11
+function switchTypeDirection(){
+
+   var typeImage = document.getElementById("directionImg");
+
+   if(typeDirection === "right"){
+      typeDirection = "down";
+      typeImage.src = "pc_down.png";
+      currentLetter.style.backgroundColor = "rgb(255, 191, 191)";
+   }else{
+      typeDirection = "right";
+      typeImage.src = "pc_right.png";
+      currentLetter.style.backgroundColor = "rgb(191, 191, 255)";
+   }
+}
+
+
 //step 7
 function formatPuzzle(puzzleLetter){//i didnt add puzzleLetter to the function and instead i thought i had to make a seprate var
    
    var currentLetter = puzzleLetter;
-
    for(var i=0; i<allLetters.length; i++){
       allLetters[i].style.backgroundcolor = "";
    }
-
    acrossClue.style.color="";
    downClue.style.color="";
 
-
-
    if(currentLetter.dataset.clueA !== undefined){
-
-      acrossClue.document.getElementById(currentLetter.dataset.clueA);//forgot to put "document" in fornt of getElementById
-      
+      acrossClue = document.getElementById(currentLetter.dataset.clueA);//forgot to put "document" in fornt of getElementById     
       acrossClue.style.color = "blue";
-
       wordLetters = document.querySelectorAll("[data-clue-a = " + currentLetter.dataset.clueA + "]"); //thought i had to get the attribute
-
       for (var i = 0; i < wordLetters.length; i++) { //forgot to add the for loop hahahahaha
-         wordLetters.style.backgroundcolor = "rgb(231, 231, 255)";
+         wordLetters[i].style.backgroundColor = "rgb(231, 231, 255)";
       }
    }
 
@@ -113,6 +167,40 @@ function formatPuzzle(puzzleLetter){//i didnt add puzzleLetter to the function a
    }else{
       currentLetter.style.backgroundcolor = "rgb(255, 191, 191)"
    }
+}
+
+//step 9
+function selectLetter(e){
+
+   var leftLetter = document.getElementById(currentLetter.dataset.left);
+   var upLetter = document.getElementById(currentLetter.dataset.up);
+   var rightLetter = document.getElementById(currentLetter.dataset.right);
+   var downLetter = document.getElementById(currentLetter.dataset.down);// didnt add document.getElementById()
+
+   var userKey = e.keyCode; //had them backwards, didnt make is a known variable and didnt associate the anonymous function with keyCode
+
+   if(userKey === 37){
+      formatPuzzle(leftLetter);
+   }else if(userKey === 38){
+      formatPuzzle(upLetter);
+   }else if(userKey === 39 || userKey === 9){ // i didnt associate 9, 13, 46, and 90 with anything
+      formatPuzzle(rightLetter);
+   }else if(userKey === 40 || userKey === 13){
+      formatPuzzle(downLetter)
+   }else if(userKey === 8 || userKey === 46){
+      currentLetter.textContent = "";
+   }else if(userKey === 32){
+      switchTypeDirection()
+   }else if(userKey >= 65 && userKey <= 90){ //i set them equal to 65 and 90 and not say inbetween 65 and 90, i also made it an "or" and not "and"
+      currentLetter = getChar(userKey);
+      if(typeDirection === "right"){
+         formatPuzzle(rightLetter)
+      }else{
+         Puzzle(downLetter)
+      }
+   }
+   e.preventDefult(); //omg i skipped another step. smh me
+
 }
 
 
