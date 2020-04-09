@@ -95,25 +95,25 @@ function init() {
 
 
    //13
-   showErrors.onmousedown = switchTypeDirection;
-   for(var i=0; i<allLetters.length; i++){
-      if(textContent !== dataset.letter){
-         allLetters.style.color = "red";
-         setInterval(allLetters.style.color = "", 3000);
+   document.getElementById("showErrors").onclick = function(){// i should have known about this, i saw it in the HTML but i didn't extract it from the HTML
+
+      for(var i=0; i<allLetters.length; i++){
+         if(allLetters[i].textContent !== allLetters[i].dataset.letter){// i didnt put allLetters[i]
+            allLetters[i].style.color = "red";// didnt put the array
+            setTimeout(function() {
+               for (var i = 0; i < allLetters.length; i++) {
+                  allLetters[i].style.color = "";
+               }
+            }, 3000); //i had no idea how to do this, i looked it up and thought i had it but nope
+         }
       }
    }
-
    //14
-   showSolution.onclick = function(e){
+   document.getElementById("showSolution").onclick = function(){//same thing for step 13
       for(var i=0; i<allLetters.length; i++){
-      e.allLetters = dataset.letter
-      };
-   }
-
-
-
-
-
+      allLetters[i].textContent = allLetters[i].dataset.letter; // didnt add allLetters[i]
+      }
+   };
 }
 
 //11
@@ -196,7 +196,7 @@ function selectLetter(e){
       if(typeDirection === "right"){
          formatPuzzle(rightLetter)
       }else{
-         Puzzle(downLetter)
+         formatPuzzle(downLetter)
       }
    }
    e.preventDefult(); //omg i skipped another step. smh me
